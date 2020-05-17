@@ -34,9 +34,6 @@ class Dog
       DB[:conn].execute(sql, self.name, self.breed)
       @id = DB[:conn].execute("SELECT last_insert_rowid() FROM dogs")[0][0]
       
-      DB[:conn].execute("SELECT * FROM dogs WHERE id = ?", @id).map do |row|
-        self.new_from_db(row)
-      end.first
     end
   end
   
