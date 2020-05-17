@@ -30,7 +30,6 @@ class Dog
     else
       i = DB[:conn].execute("INSERT INTO dogs (name, breed) VALUES (?, ?)", self.name, self.breed)
       @id = DB[:conn].execute("SELECT last_insert_rowid() FROM dogs")[0][0]
-      self.find_by_id(@id)
     end
   end
   
