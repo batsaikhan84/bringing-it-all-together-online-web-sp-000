@@ -28,9 +28,12 @@ class Dog
     if self.id
       self.update
     else
-      i = DB[:conn].execute("INSERT INTO dogs (name, breed) VALUES (?, ?)", self.name, self.breed)
+      DB[:conn].execute("INSERT INTO dogs (name, breed) VALUES (?, ?)", self.name, self.breed)
       @id = DB[:conn].execute("SELECT last_insert_rowid() FROM dogs")[0][0]
       
+      DB[:conn].execute("SELECT * FROM dogs WHERE id = ?", @id).map do |row|
+        self.new_from_db(row)
+      end.first
     end
   end
   
