@@ -28,11 +28,9 @@ class Dog
     if self.id
       self.update
     else
-      DB[:conn].execute("INSERT INTO dogs (name, breed) VALUES (?, ?)", self.name, self.breed)
+      return DB[:conn].execute("INSERT INTO dogs (name, breed) VALUES (?, ?)", self.name, self.breed)
       @id = DB[:conn].execute("SELECT last_insert_rowid() FROM dogs")[0][0]
-      new = self.new(id: @id, name: self.name, breed: self.breed)
     end
-    new
   end
   
   def self.create(name:, breed:)
