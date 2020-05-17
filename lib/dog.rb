@@ -32,7 +32,7 @@ class Dog
       @id = DB[:conn].execute("SELECT last_insert_rowid() FROM dogs")[0][0]
       i.map do |row|
         self.new_from_db(row)
-      end
+      end.first
     end
   end
   
